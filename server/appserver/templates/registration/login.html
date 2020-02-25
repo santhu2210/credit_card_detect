@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block body_class %}bg-dark{% endblock body_class %}
+
+{% block content %}
+
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="index.html">
+                        <img class="align-content"  src="{% static 'images/CCE_logo.png' %}" alt="">
+                    </a>
+                </div>
+                <div class="login-form" action="/">
+
+                     <form method="post" autocomplete="off">
+                       {% csrf_token %}
+<!--                        {{ form.as_p }}
+                     -->{% if errormessage %}
+                          <p><strong class="text-danger">username or password not correct</strong></p>
+                        {% endif %}
+                         <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="Username" >
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password" >
+                        </div>
+
+                    <button class="btn btn-success btn-flat m-b-30 m-t-30" type="submit">Sign in</button>
+                    </form>
+
+<!-- 
+                    <form id="submit" method="post" action="home/">
+                      {% csrf_token %}
+                        <div class="form-group">
+                            <label>Email address</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember Me
+                            </label>
+                            <label class="pull-right">
+                                <a href="#">Forgotten Password?</a>
+                            </label>
+
+                        </div>
+                        <a id="login" class="btn btn-success btn-flat m-b-30 m-t-30" href="#">Sign in</a>
+                    </form> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  jQuery("#login").click(function() {
+    alert(1);
+  jQuery("#submit").submit();
+});
+
+</script>
+{% endblock %}
+
+
+<!-- {% if user and not user.is_anonymous %}
+  <a>Hello, {% if user.get_full_name %}{{ user.get_full_name }}! {% else %}{{user.username}} {% endif %}</a>
+  <br>
+  <a href="/logout">Logout</a>
+{% else %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+  <button type="submit">Sign in/ Sign Up</button>
+  </form>
+  <p class="forgot"><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+
+{% endif %}
+
+                      {% csrf_token %}
+                      {{ form.non_field_errors }}
+                  <div class="form-group">
+                      {{ form.username.errors }}
+                      <label for="{{ form.username.id_for_label }}">Username:</label>
+                      {{ form.username }}
+                  </div>
+                  <div class="form-group">
+                      {{ form.password.errors }}
+                      <label for="{{ form.password.id_for_label }}">Password:</label>
+                      {{ form.password }}
+                  </div>
+ -->

@@ -1,0 +1,186 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#"><img src="{% static 'images/Logo_RoboReader.png' %}">
+                </a>
+                <a class="navbar-brand hidden" href="#"><img src="{% static 'images/logo2.png' %}" alt="Logo">
+                </a>
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+<!--                         <a href="/home/"> <i class="menu-icon fa fa-dashboard"></i>Search Titles </a>
+ -->                    </li>
+                    <!-- /.menu-title -->
+<!--                     <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>navbar</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-puzzle-piece"></i><a href="#">sample dropdown1</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="#">sample dropdown2</a>
+                            </li>
+                            <li><i class="fa fa-bars"></i><a href="#">sample dropdown3</a>
+                            </li>
+                    </li> -->
+                    </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+        <header id="header" class="header">
+
+            <div class="header-menu">
+
+                <div class="col-sm-7">
+                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa-bars"></i></a>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="user-avatar rounded-circle" src="{% static 'images/admin_avatar.jpeg' %}" alt="User Avatar">
+                        </a>
+
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+
+<!--                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+
+                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a> -->
+
+                            <a class="nav-link" href="/logout"><i class="fa fa-power -off"></i>Logout</a>
+                        </div>
+                    </div>
+
+                    <div class="language-select dropdown" id="language-select">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+                            <i class="flag-icon flag-icon-us"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="language">
+                            <div class="dropdown-item">
+                                <span class="flag-icon flag-icon-fr"></span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="flag-icon flag-icon-es"></i>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="flag-icon flag-icon-us"></i>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="flag-icon flag-icon-it"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </header>
+        <!-- /header -->
+        <!-- Header-->
+
+        {% if EditFailure %}
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Alert! </strong> Entered Details are Not correct!..
+            </div>
+        {% endif %}
+
+
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Profile</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Update Password </strong> 
+                            </div>
+                                <div class="card-body card-block">                         
+
+                                <form  method="post" class="form-horizontal" action="/profile-edit/" >
+                            	    {% csrf_token %}
+                                    <div class="col-lg-5">
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="hf-text" class=" form-control-label">Current Password 
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                        	        <input type="password" id="hf-text" name="currentpassword" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="hf-genre" class=" form-control-label">New Password </label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                               		<input type="password" id="hf-genre" name="newpassword" class="form-control">
+                                              </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col col-md-4">
+                                                <label for="hf-budget" class=" form-control-label">Re-enter Password </label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                               		<input type="password" id="hf-budget" name="conformpassword" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-center margn-15">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- .animated -->
+        </div>
+        <!-- .content -->
+
+
+    </div>
+{% endblock %}
+

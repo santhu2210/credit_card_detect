@@ -1,0 +1,49 @@
+version: '3.7'
+services:
+    tf_serving:
+        image: spianalytics/tensorflow-serving-devel:latest  # This is compiled for AVX2 CPUs etc. "tensorflow/serving:latest-devel" is default
+        container_name: "credit_tf_serving_new"
+        ports:
+            - "8901:8500"  # Tensorflow serving gRPC-API is exposed internally in 8500
+            - "8902:8501"  # Tensorflow serving ReST-API is exposed internally in 8501
+        volumes:
+            - ./tensorflow_servables:/tensorflow_servables
+        command: /bin/bash /tensorflow_servables/serve_models.sh
+        healthcheck:
+            test: /bin/bash /tensorflow_servables/healthcheck.sh || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 10s
+        networks:
+            ccd_net:
+                ipv4_address: 172.39.1.2
+
+
+    main_engine:
+        image: "spianalytics/creditcard_detection:1.0a2"
+        container_name: "detection_engine_new"
+        ports:
+            - "8704:8000"
+        volumes:
+            - ../ccd_log_dir:/home/ccd_user/ccd_deployment/ccd_log_dir
+            - ./server:/home/ccd_user/ccd_deployment/server
+        depends_on:
+            - tf_serving
+        command: /bin/bash /home/ccd_user/ccd_deployment/server/run_dev_server.sh
+        healthcheck:
+            test: curl -f http://localhost:8000/ || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 10s
+        networks:
+            ccd_net:
+                ipv4_address: 172.39.1.4
+
+networks:
+    ccd_net:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.39.0.0/16
