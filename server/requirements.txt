@@ -15,4 +15,4 @@ tensorflow-serving-api==1.10.0
 tensorflow-serving-api-python3==1.8.0
 img2pdf==0.3.3
 pdf2image==1.2.1
-numpy==1.16.2
+numpy==1.22.0
